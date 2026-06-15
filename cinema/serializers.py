@@ -64,7 +64,7 @@ class MovieSessionListSerializer(MovieSessionSerializer):
         source="cinema_hall.capacity", read_only=True
     )
     tickets_available = serializers.IntegerField(
-        required=False, allow_null=True
+        required=False, allow_null=True, default=0
     )
 
     class Meta:
@@ -80,7 +80,9 @@ class MovieSessionListSerializer(MovieSessionSerializer):
 
 
 class TicketSerializer(serializers.ModelSerializer):
-    movie_session = MovieSessionListSerializer(many=False, read_only=True)
+    movie_session = serializers.PrimaryKeyRelatedField(
+        queryset=MovieSession.objects.all()
+    )
 
     class Meta:
         model = Ticket
@@ -88,7 +90,7 @@ class TicketSerializer(serializers.ModelSerializer):
         validators = [
             UniqueTogetherValidator(
                 queryset=Ticket.objects.all(),
-                fields=("row", "seat"),
+                fields=("row", "seat", "movie_session"),
             )
         ]
 
