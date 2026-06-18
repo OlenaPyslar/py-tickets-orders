@@ -15,7 +15,8 @@ from cinema.serializers import (
     MovieSessionListSerializer,
     MovieDetailSerializer,
     MovieSessionDetailSerializer,
-    MovieListSerializer, OrderSerializer, TicketSerializer, OrderListSerializer,
+    MovieListSerializer, OrderSerializer,
+    TicketSerializer, OrderListSerializer,
 )
 
 
@@ -118,9 +119,9 @@ class MovieSessionViewSet(viewsets.ModelViewSet):
 
 
 class OrderPagination(PageNumberPagination):
-   page_size = 3
-   page_size_query_param = "page_size"
-   max_page_size = 100
+    page_size = 3
+    page_size_query_param = "page_size"
+    max_page_size = 100
 
 
 class OrderViewSet(viewsets.ModelViewSet):
